@@ -27,4 +27,10 @@ class Program
 
         return books;
     }
+
+    public static void Main()
+    {
+        Program program = new Program();
+        program.Run();
+    }
 }
