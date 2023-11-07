@@ -2,35 +2,29 @@
 using System.Collections.Generic;
 using System.IO;
 
-class Program
+string dataDirectory = "Book_data";
+
+List<Book> books = ReadBooksFromDirectory(dataDirectory);
+
+Library myLibrary = new Library("Bobby Olsen Library", books);
+myLibrary.Start();
+
+List<Book> ReadBooksFromDirectory(string directoryPath)
 {
-    public void Run()
+    if (!Directory.Exists(directoryPath))
     {
-        string dataDirectory = "Book_data";
-        List<Book> books = ReadBooksFromDirectory(dataDirectory);
-
-        Library myLibrary = new Library("My Library", books);
-        myLibrary.Start();
+        Directory.CreateDirectory(directoryPath);
     }
 
-    public List<Book> ReadBooksFromDirectory(string directoryPath)
+    List<Book> books = new List<Book>();
+
+    string[] bookFiles = Directory.GetFiles(directoryPath, "*.txt");
+    foreach (string bookFile in bookFiles)
     {
-        List<Book> books = new List<Book>();
-
-        string[] bookFiles = Directory.GetFiles(directoryPath, "*.txt");
-        foreach (string bookFile in bookFiles)
-        {
-            string title = Path.GetFileNameWithoutExtension(bookFile);
-            string content = File.ReadAllText(bookFile);
-            books.Add(new Book(title, content));
-        }
-
-        return books;
+        string title = Path.GetFileNameWithoutExtension(bookFile);
+        string content = File.ReadAllText(bookFile);
+        books.Add(new Book(title, content));
     }
 
-    public static void Main()
-    {
-        Program program = new Program();
-        program.Run();
-    }
+    return books;
 }

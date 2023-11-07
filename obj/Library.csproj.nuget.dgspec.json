@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\simon\\Downloads\\HTX\\Studieretning\\Programmering\\Library\\Library.csproj": {}
+    "D:\\Programming\\Library\\Library.csproj": {}
   },
   "projects": {
-    "C:\\Users\\simon\\Downloads\\HTX\\Studieretning\\Programmering\\Library\\Library.csproj": {
+    "D:\\Programming\\Library\\Library.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\simon\\Downloads\\HTX\\Studieretning\\Programmering\\Library\\Library.csproj",
+        "projectUniqueName": "D:\\Programming\\Library\\Library.csproj",
         "projectName": "Library",
-        "projectPath": "C:\\Users\\simon\\Downloads\\HTX\\Studieretning\\Programmering\\Library\\Library.csproj",
+        "projectPath": "D:\\Programming\\Library\\Library.csproj",
         "packagesPath": "C:\\Users\\simon\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\simon\\Downloads\\HTX\\Studieretning\\Programmering\\Library\\obj\\",
+        "outputPath": "D:\\Programming\\Library\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\simon\\AppData\\Roaming\\NuGet\\NuGet.Config"

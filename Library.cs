@@ -14,7 +14,7 @@ public class Library
 
     public void Start()
     {
-        Console.WriteLine($"Welcome to the {name} Library!");
+        Console.WriteLine($"Welcome to the {name}!");
         DisplayMainMenu();
     }
 

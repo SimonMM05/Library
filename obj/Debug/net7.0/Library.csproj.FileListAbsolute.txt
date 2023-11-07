@@ -12,3 +12,17 @@ C:\Users\simon\Downloads\HTX\Studieretning\Programmering\Library\obj\Debug\net7.
 C:\Users\simon\Downloads\HTX\Studieretning\Programmering\Library\obj\Debug\net7.0\Library.pdb
 C:\Users\simon\Downloads\HTX\Studieretning\Programmering\Library\obj\Debug\net7.0\Library.genruntimeconfig.cache
 C:\Users\simon\Downloads\HTX\Studieretning\Programmering\Library\obj\Debug\net7.0\ref\Library.dll
+D:\Programming\Library\bin\Debug\net7.0\Library.exe
+D:\Programming\Library\bin\Debug\net7.0\Library.deps.json
+D:\Programming\Library\bin\Debug\net7.0\Library.runtimeconfig.json
+D:\Programming\Library\bin\Debug\net7.0\Library.dll
+D:\Programming\Library\bin\Debug\net7.0\Library.pdb
+D:\Programming\Library\obj\Debug\net7.0\Library.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programming\Library\obj\Debug\net7.0\Library.AssemblyInfoInputs.cache
+D:\Programming\Library\obj\Debug\net7.0\Library.AssemblyInfo.cs
+D:\Programming\Library\obj\Debug\net7.0\Library.csproj.CoreCompileInputs.cache
+D:\Programming\Library\obj\Debug\net7.0\Library.dll
+D:\Programming\Library\obj\Debug\net7.0\refint\Library.dll
+D:\Programming\Library\obj\Debug\net7.0\Library.pdb
+D:\Programming\Library\obj\Debug\net7.0\Library.genruntimeconfig.cache
+D:\Programming\Library\obj\Debug\net7.0\ref\Library.dll
