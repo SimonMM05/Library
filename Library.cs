@@ -70,9 +70,19 @@ public class Library
 
     private void ReadBook(Book book)
     {
+        Console.Clear(); // Clear the console
         Console.WriteLine($"Reading '{book.Title}':");
-        Console.WriteLine(book.Content);
-        Console.WriteLine("Press any key to continue...");
+
+        // Control the speed of text output (e.g., 50 milliseconds per character)
+        int delayPerCharacter = 8;
+
+        foreach (char character in book.Content)
+        {
+            Console.Write(character);
+            Thread.Sleep(delayPerCharacter);
+        }
+
+        Console.WriteLine("\nPress any key to return to the main menu...");
         Console.ReadKey();
     }
 }
