@@ -1,11 +1,15 @@
+using System.Collections.Generic;
+
 public class Book
 {
     public string Title { get; }
-    public string Content { get; }
+    public Author Author { get; }
+    public List<Page> Pages { get; }
 
-    public Book(string title, string content)
+    public Book(string title, Author author, List<Page> pages)
     {
         Title = title;
-        Content = content;
+        Author = author;
+        Pages = pages;
     }
 }
