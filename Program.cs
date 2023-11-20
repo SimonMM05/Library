@@ -15,32 +15,32 @@ class Program
     {
         if (!Directory.Exists(directoryPath))
         {
-            Directory.CreateDirectory(directoryPath);
+            Console.WriteLine($"Directory not found: {directoryPath}");
+            return new List<Author>();
         }
 
         List<Author> authors = new List<Author>();
-        string[] authorDirectories = Directory.GetDirectories(directoryPath);
+        string[] authorFiles = Directory.GetFiles(directoryPath, "*.txt");
 
-        foreach (string authorDirectory in authorDirectories)
+        foreach (string authorFile in authorFiles)
         {
-            string authorName = Path.GetFileName(authorDirectory);
-            List<Book> books = ReadBooksFromDirectory(authorDirectory);
+            string authorName = Path.GetFileNameWithoutExtension(authorFile);
+            List<Book> books = ReadBooksFromAuthorFile(authorFile);
             authors.Add(new Author(authorName, books));
         }
 
         return authors;
     }
 
-    static List<Book> ReadBooksFromDirectory(string directoryPath)
+    static List<Book> ReadBooksFromAuthorFile(string authorFile)
     {
         List<Book> books = new List<Book>();
-        string[] bookFiles = Directory.GetFiles(directoryPath, "*.txt");
+        string[] bookLines = File.ReadAllLines(authorFile);
 
-        foreach (string bookFile in bookFiles)
+        foreach (string line in bookLines)
         {
-            string title = Path.GetFileNameWithoutExtension(bookFile);
-            title = title.Replace("'", "_");
-            List<Page> pages = ReadPagesFromFile(bookFile);
+            string title = line.Replace("'", "_");
+            List<Page> pages = ReadPagesFromFile($"Book_data/{title}.txt");
             books.Add(new Book(title, pages));
         }
 
