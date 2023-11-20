@@ -1,15 +1,14 @@
 using System;
-using System.Collections.Generic;
 
 public class Library
 {
     private string name;
-    private List<Book> books;
+    private List<Author> authors;
 
-    public Library(string name, List<Book> books)
+    public Library(string name, List<Author> authors)
     {
         this.name = name;
-        this.books = books;
+        this.authors = authors;
     }
 
     public void Start()
@@ -23,14 +22,15 @@ public class Library
         while (true)
         {
             Console.WriteLine("Main Menu:");
-            Console.WriteLine("1. Browse Books");
+            Console.WriteLine("1. Browse Authors");
             Console.WriteLine("2. Exit Library");
+
             string choice = Console.ReadLine();
 
             switch (choice)
             {
                 case "1":
-                    BrowseBooks();
+                    BrowseAuthors();
                     break;
                 case "2":
                     Console.WriteLine("Goodbye!");
@@ -42,12 +42,40 @@ public class Library
         }
     }
 
-    private void BrowseBooks()
+    private void BrowseAuthors()
     {
-        Console.WriteLine("Available Books:");
-        for (int i = 0; i < books.Count; i++)
+        Console.WriteLine("Available Authors:");
+        for (int i = 0; i < authors.Count; i++)
         {
-            Console.WriteLine($"{i + 1}. {books[i].Title}");
+            Console.WriteLine($"{i + 1}. {authors[i].Name}");
+        }
+
+        Console.WriteLine("Enter the author number to browse (or 'back' to return to the main menu):");
+        string choice = Console.ReadLine();
+
+        if (choice == "back")
+        {
+            return;
+        }
+
+        if (int.TryParse(choice, out int authorNumber) && authorNumber >= 1 && authorNumber <= authors.Count)
+        {
+            BrowseBooks(authors[authorNumber - 1]);
+        }
+        else
+        {
+            Console.WriteLine("Invalid choice. Please enter a valid author number.");
+        }
+    }
+
+    private void BrowseBooks(Author author)
+    {
+        Console.Clear(); // Clear the console
+        Console.WriteLine($"Browsing books by {author.Name}:");
+
+        for (int i = 0; i < author.Books.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {author.Books[i].Title}");
         }
 
         Console.WriteLine("Enter the book number to read (or 'back' to return to the main menu):");
@@ -58,9 +86,9 @@ public class Library
             return;
         }
 
-        if (int.TryParse(choice, out int bookNumber) && bookNumber >= 1 && bookNumber <= books.Count)
+        if (int.TryParse(choice, out int bookNumber) && bookNumber >= 1 && bookNumber <= author.Books.Count)
         {
-            ReadBook(books[bookNumber - 1]);
+            ReadBookPages(author.Books[bookNumber - 1]);
         }
         else
         {
@@ -68,21 +96,52 @@ public class Library
         }
     }
 
-    private void ReadBook(Book book)
+    private void ReadBookPages(Book book)
     {
         Console.Clear(); // Clear the console
-        Console.WriteLine($"Reading '{book.Title}':");
+        Console.WriteLine($"Reading '{book.Title}' by {book.Author.Name}:");
 
-        // Control the speed of text output (e.g., 50 milliseconds per character)
-        int delayPerCharacter = 8;
+        int linesPerPage = Console.WindowHeight - 5; // Adjusted for window title and prompt
 
-        foreach (char character in book.Content)
+        int currentPage = 0;
+        int totalPages = (int)Math.Ceiling((double)book.Pages.Count / linesPerPage);
+
+        do
         {
-            Console.Write(character);
-            Thread.Sleep(delayPerCharacter);
-        }
+            Console.Clear(); // Clear the console before displaying the next page
+            Console.WriteLine($"Reading '{book.Title}' by {book.Author.Name}: Page {currentPage + 1} of {totalPages}\n");
 
-        Console.WriteLine("\nPress any key to return to the main menu...");
+            int startIndex = currentPage * linesPerPage;
+            int endIndex = Math.Min(startIndex + linesPerPage, book.Pages.Count);
+
+            for (int i = startIndex; i < endIndex; i++)
+            {
+                Console.WriteLine($"{book.Pages[i].Content}");
+                Console.WriteLine();
+            }
+
+            Console.WriteLine("Press 'N' for the next page, 'P' for the previous page, or 'B' to go back to the main menu:");
+
+            string choice = Console.ReadLine();
+
+            switch (choice.ToUpper())
+            {
+                case "N":
+                    currentPage++;
+                    break;
+                case "P":
+                    currentPage = Math.Max(0, currentPage - 1);
+                    break;
+                case "B":
+                    return; // Exit the method and go back to the main menu
+                default:
+                    Console.WriteLine("Invalid choice. Please enter 'N', 'P', or 'B'.");
+                    break;
+            }
+
+        } while (currentPage < totalPages);
+
+        Console.WriteLine("\nEnd of Book. Press any key to return to the main menu...");
         Console.ReadKey();
     }
 }
