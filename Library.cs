@@ -25,6 +25,8 @@ public class Library
     {
         while (true)
         {
+            Console.Clear(); // Clear the console before displaying the main menu
+
             Console.WriteLine("\nMain Menu:");
             Console.WriteLine("1. Browse Authors");
             Console.WriteLine("2. Exit Library");
@@ -116,40 +118,53 @@ public class Library
         if (book != null)
         {
             Console.WriteLine($"Reading '{book.Title}' by {book.Author?.Name ?? "Unknown Author"}:");
-            int linesPerPage = Console.WindowHeight - 5;
 
+            int wordsPerPage = 100;
             int currentPage = 0;
-            int totalPages = (int)Math.Ceiling((double)(book.Pages?.Count ?? 0) / linesPerPage);
+            int totalWords = 0;
 
-            do
+            while (currentPage < book.Pages.Count)
             {
-                Console.Clear();
-                Console.WriteLine($"Reading '{book.Title}' by {book.Author?.Name ?? "Unknown Author"}: Page {currentPage + 1} of {totalPages}\n");
+                var page = book.Pages[currentPage];
 
-                int startIndex = currentPage * linesPerPage;
-                int endIndex = Math.Min(startIndex + linesPerPage, book.Pages?.Count ?? 0);
-                for (int i = startIndex; i < endIndex; i++)
+                totalWords += page.GetWordCount();
+
+                Console.WriteLine($"{page.Content}\n");
+
+                if (totalWords > wordsPerPage)
                 {
-                    Console.WriteLine($"{book.Pages?[i].Content}");
-                    Console.WriteLine();
+                    Console.WriteLine("");
+                    Console.WriteLine("Press 'N' for the next page, 'P' for the previous page, 'B' to go back to the main menu, or any other key to continue:");
+
+                    string userChoice = Console.ReadLine();
+
+                    switch (userChoice?.ToUpper())
+                    {
+                        case "N":
+                            totalWords = 0;
+                            currentPage++;
+                            break;
+                        case "P":
+                            if (currentPage > 0)
+                            {
+                                currentPage--;
+                                totalWords = 0;
+                            }
+                            break;
+                        case "B":
+                            return;
+                        default:
+                            break;
+                    }
+
+                    Console.Clear();
+                    Console.WriteLine($"Reading '{book.Title}' by {book.Author?.Name ?? "Unknown Author"}:");
                 }
-
-                Console.WriteLine("Press 'N' for the next page, 'B' to go back to the main menu, or any other key to continue:");
-
-                string userChoice = Console.ReadLine();
-
-                switch (userChoice?.ToUpper())
+                else
                 {
-                    case "N":
-                        currentPage++;
-                        break;
-                    case "B":
-                        return;
-                    default:
-                        break;
+                    currentPage++;
                 }
-
-            } while (currentPage < totalPages);
+            }
 
             Console.WriteLine("\nEnd of Book. Press any key to return to the main menu...");
             Console.ReadKey();
