@@ -125,7 +125,6 @@ public class Library
 
                 int startIndex = currentPage * linesPerPage;
                 int endIndex = Math.Min(startIndex + linesPerPage, book.Pages?.Count ?? 0);
-
                 for (int i = startIndex; i < endIndex; i++)
                 {
                     Console.WriteLine($"{book.Pages?[i].Content}");
