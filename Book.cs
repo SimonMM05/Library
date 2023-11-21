@@ -4,11 +4,12 @@ public class Book
 {
     public string Title { get; }
     public List<Page> Pages { get; }
-    public string? Author { get; internal set; }
+    public Author Author { get; }
 
-    public Book(string title, List<Page> pages)
+    public Book(string title, List<Page> pages, Author author)
     {
         Title = title;
         Pages = pages;
+        Author = author;
     }
 }

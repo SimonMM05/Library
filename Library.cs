@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 public class Library
 {
     private string name;
     private List<Author> authors;
+
+    public List<Author> Authors => authors;
 
     public Library(string name, List<Author> authors)
     {

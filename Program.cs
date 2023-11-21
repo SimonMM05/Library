@@ -20,28 +20,28 @@ class Program
         }
 
         List<Author> authors = new List<Author>();
-        string[] authorFiles = Directory.GetFiles(directoryPath, "*.txt");
+        string[] authorFolders = Directory.GetDirectories(directoryPath);
 
-        foreach (string authorFile in authorFiles)
+        foreach (string authorFolder in authorFolders)
         {
-            string authorName = Path.GetFileNameWithoutExtension(authorFile);
-            List<Book> books = ReadBooksFromAuthorFile(authorFile);
+            string authorName = Path.GetFileName(authorFolder);
+            List<Book> books = ReadBooksFromAuthorFile(authorFolder);
             authors.Add(new Author(authorName, books));
         }
 
         return authors;
     }
 
-    static List<Book> ReadBooksFromAuthorFile(string authorFile)
+    static List<Book> ReadBooksFromAuthorFile(string authorFolder)
     {
         List<Book> books = new List<Book>();
-        string[] bookLines = File.ReadAllLines(authorFile);
+        string[] bookFiles = Directory.GetFiles(authorFolder, "*.txt");
 
-        foreach (string line in bookLines)
+        foreach (string bookFile in bookFiles)
         {
-            string title = line.Replace("'", "_");
-            List<Page> pages = ReadPagesFromFile($"Book_data/{title}.txt");
-            books.Add(new Book(title, pages));
+            string title = Path.GetFileNameWithoutExtension(bookFile);
+            List<Page> pages = ReadPagesFromFile(bookFile);
+            books.Add(new Book(title, pages, new Author("Unknown Author", new List<Book>())));
         }
 
         return books;
